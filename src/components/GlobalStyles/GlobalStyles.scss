@@ -3,6 +3,8 @@
 
 :root {
   --primary: #fe2c55;
+  --back: #000;
+  --text-color: #333;
 
   // Default layout
   --default-layout-header-heigth: 60px;
@@ -21,8 +23,21 @@ html {
 
 body {
   font-family: 'IBM Plex Sans', sans-serif;
-  font-family: proxima-nova, sans-serif;
+  font-family: ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
   font-size: 1.6rem;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
+  color: var(--text-color);
+}
+
+button,
+input,
+[tabindex] {
+  border: none;
+  outline: none;
+}
+
+a[href] {
+  color: var(--text-color);
+  text-decoration: none;
 }
