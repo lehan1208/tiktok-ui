@@ -1,28 +1,69 @@
+import { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
-import images from '~/assets/images'
-import styles from './Header.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faCircleXmark, faMagnifyingGlass, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import Tippy from '@tippyjs/react/headless'
+
+import Button from '~/components/Button'
+import styles from './Header.module.scss'
+import images from '~/assets/images'
+import { Wrapper as PopperWrapper } from '~/components/Popper'
+import AccountItem from '~/components/AccountItem'
 
 const cx = classNames.bind(styles)
 
 function Header() {
+    const [searchResult, setSeachResult] = useState([])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setSeachResult([])
+        }, 1000)
+    }, [])
+
     return <header className={cx('wrapper')}>
         <div className={cx('inner')}>
-            <img src={images.logo} alt='Tik Tok' />
-            <div className={cx('search')}>
-                <input placeholder='Search accounts and videos' spellCheck={false} />
-                <button className={cx('clear')}>
-                    <FontAwesomeIcon icon={faCircleXmark} />
-                </button>
+            <img src={images.logo} alt='TikTok' />
 
-                <FontAwesomeIcon className={cx('spinner')} icon={faSpinner} />
+            <Tippy
+                interactive={true}
+                visible={searchResult.length > 0}
+                render={attrs => (
+                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                        <PopperWrapper>
+                            <h4 className={cx('search-title')}>Accounts</h4>
+                            <AccountItem />
+                            <AccountItem />
+                            <AccountItem />
+                            <AccountItem />
+                        </PopperWrapper>
+                    </div>
+                )}
+            >
+                <div className={cx('search')}>
+                    <input placeholder='Search accounts and videos' spellCheck={false} />
+                    <button className={cx('clear')}>
+                        <FontAwesomeIcon icon={faCircleXmark} />
+                    </button>
 
-                <button className={cx('search-btn')}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </button>
+                    <FontAwesomeIcon className={cx('spinner')} icon={faSpinner} />
+
+
+                    <button className={cx('search-btn')}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </button>
+                </div>
+            </Tippy>
+
+            <div className={cx('actions')}>
+                <Button
+                    text to='/upload'
+                    leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                >
+                    Upload
+                </Button>
+                <Button primary >Log in</Button>
             </div>
-            <div className={cx('actions')}></div>
         </div>
     </header>
 }

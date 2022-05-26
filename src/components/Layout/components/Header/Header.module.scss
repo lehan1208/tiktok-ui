@@ -16,10 +16,14 @@
   justify-content: space-between;
 }
 
+.search,
+.search-result {
+  width: 361px;
+}
+
 .search {
   position: relative;
   display: flex;
-  width: 361px;
   height: 46px;
   padding-left: 16px;
   background-color: rgba(22, 24, 35, 0.06);
@@ -54,6 +58,13 @@
   }
 }
 
+.search-title {
+  padding: 5px 12px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgba(22, 24, 35, 0.5);
+}
+
 .clear,
 .spinner {
   position: absolute;
@@ -79,4 +90,13 @@
   &:active {
     color: rgba(22, 24, 35, 0.06);
   }
+}
+
+// .custome-text {
+//   color: var(--primary);
+// }
+
+.plus-icon {
+  font-size: 1.6rem;
+  margin-right: 8px;
 }
