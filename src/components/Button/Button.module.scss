@@ -5,12 +5,13 @@
   min-width: 100px;
   padding: 8px 16px;
   border-radius: 4px;
+  border: 1px solid var(--white);
+  background-color: var(--white);
   font-size: 1.6rem;
+  font-family: ProximaNova, sans-serif;
   font-weight: 700;
   cursor: pointer;
   user-select: none;
-  background-color: var(--white);
-  border: 1px solid var(--white);
 
   + .wrapper {
     margin-left: 8px;
@@ -29,9 +30,10 @@
 }
 
 .icon {
-  display: inline-block;
+  display: flex;
   width: 24px;
   text-align: center;
+  justify-content: center;
 }
 
 // Button types
