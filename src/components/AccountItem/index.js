@@ -2,23 +2,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import classNames from "classnames/bind"
 import styles from './AccountItem.module.scss'
+import Image from '~/components/Image'
+import { Link } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
-function AccountItem() {
+function AccountItem({ data }) { // Account nhận 1 props data ./Layout/components/Search
     return (
         <div className={cx('wrapper')}>
-            <img
+            <Image
                 className={cx('avatar')}
-                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/9366bed55819a1889d53ff3a508c766b~c5_300x300.webp?x-expires=1653645600&x-signature=OZFt%2F%2FERoUIiM9FvmPEBb99s1eU%3D"
-                alt="Mr.A"
+                src={data.avatar}
+                alt={data.full_name}
             />
-            <div className={cx('info')}>
+            <Link to={`/@${data.nickname}`} className={cx('info')}>
                 <h4 className={cx('name')}>
-                    <span>Nguyen Van A</span>
-                    <FontAwesomeIcon className={cx('check-icon')} icon={faCheckCircle} />
+                    <span>{data.full_name}</span>
+
+                    {data.tick && <FontAwesomeIcon className={cx('check-icon')} icon={faCheckCircle} />}
+                    {/* Khi data.tick là true thì thực hiện them icon tick xanh */}
                 </h4>
-                <span className={cx('username')}>nguyenvana</span>
-            </div>
+                <span className={cx('username')}>{data.nickname}</span>
+            </Link>
         </div>
     )
 }

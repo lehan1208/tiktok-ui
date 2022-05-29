@@ -3,27 +3,27 @@ import classNames from 'classnames'
 import images from '~/assets/images'
 import styles from './Image.module.scss'
 
-const Image = forwardRef((
+const Image = forwardRef(( // Syntax: forwardRef((props, ref) => {})
     {
         src,
         className,
-        fallback: customFallback = images.noImage, // fallback truyền từ ngoài vào, nếu không có fallback thì lấy images.noImage
+        fallback, // fallback truyền từ ngoài vào, nếu không có fallback thì lấy images.noImage
         alt,
         ...props
     }, ref) => {
-    const [fallBack, setFallback] = useState('')
+    const [_fallBack, setFallback] = useState('')
 
     const handleError = () => {
-        setFallback(customFallback)
+        setFallback(fallback ? fallback : images.noImage) // fallback truyền từ ngoài vào, nếu không có fallback thì lấy images.noImage
     }
 
     return (<img
-        className={classNames(styles.wrapper, className)}
+        className={classNames(styles.wrapper, className)} // wrapper => css
         ref={ref}
-        src={fallBack || src}
+        src={_fallBack || src}      // Nếu có fallback thì truyền vào _fallback
         alt={alt}
         {...props}
-        onError={handleError}
+        onError={handleError}   // Nếu lỗi thì thực hiện hàm handleError
     />
     )
 })
