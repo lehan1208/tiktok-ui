@@ -5,6 +5,7 @@ import AccountItem from '~/components/AccountItem'
 import { SearchIcon } from '~/components/Icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import request from '~/ultis/request'
 import { useDebounce } from '~/hooks';
 import { useEffect, useState, useRef } from 'react'
 import classNames from 'classnames/bind'
@@ -30,10 +31,16 @@ function Search() {
         }
         setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`) // Khi nhập tìm kiếm vào ô input sẽ thay đổi từ khóa sau "q="
-            .then(res => res.json())        // encodeURIComponent() => mã hóa các kí tự đặc biệt tránh bị nhầm lẫn
-            .then(res => {
-                setSearchResult(res.data);
+        request
+            .get('users/search', {
+                params: {
+                    q: debounced,
+                    type: 'less',
+                }
+            }) // Khi nhập tìm kiếm vào ô input sẽ thay đổi từ khóa sau "q="
+            // encodeURIComponent() => mã hóa các kí tự đặc biệt tránh bị nhầm lẫn
+            .then((res) => {
+                setSearchResult(res.data.data);
                 setLoading(false); // Sau khi gọi API xong thì sẽ ẩn loading đi => false
             })
             .catch(() => {
