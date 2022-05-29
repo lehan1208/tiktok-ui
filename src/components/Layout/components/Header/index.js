@@ -2,10 +2,12 @@ import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 
+import routesConfig from '~/config/routes'
 import Button from '~/components/Button'
 import images from '~/assets/images'
 import Menu from '~/components/Popper/Menu'
@@ -95,7 +97,9 @@ function Header() {
 
             {/* LOGO TIKTOK */}
 
-            <img src={images.logo} alt='TikTok' />
+            <Link to={routesConfig.home} className={cx('logo-link')}>
+                <img src={images.logo} alt='TikTok' />
+            </Link>   {/* Click vào logo sẽ quay về trang chủ */}
 
             {/* SEARCH */}
             <Search />

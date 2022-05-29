@@ -106,7 +106,7 @@ function Search() {
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
                 {/* Nếu có loading thì lấy ra icon - toán tử && là nếu có ... thì ... */}
 
-                <button className={cx('search-btn')}>
+                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()} > {/* Bỏ qua hành vi focus vào ô tìm kiếm khi nhấn submit */}
                     <SearchIcon />
                 </button>
             </div>
