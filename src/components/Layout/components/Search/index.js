@@ -5,7 +5,7 @@ import AccountItem from '~/components/AccountItem'
 import { SearchIcon } from '~/components/Icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
+import { useDebounce } from '~/hooks';
 import { useEffect, useState, useRef } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Search.module.scss'
@@ -19,16 +19,18 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
+    const debounced = useDebounce(searchValue, 500) // gán debounced = useDebounce(value = searchVlue, delay = 500ms) => sau 500ms giá trị debounce được update = searchValue mới nhất
+
     const inputRef = useRef()       // sử dụng useRef để focus vào input
 
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([])     // Nếu không có searchValue thì setSearchResult trả về mảng rỗng
             return;         // Nếu  searchValue=false - không có / (= rỗng) thì thoát hàm useEffect
         }
         setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`) // Khi nhập tìm kiếm vào ô input sẽ thay đổi từ khóa sau "q="
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`) // Khi nhập tìm kiếm vào ô input sẽ thay đổi từ khóa sau "q="
             .then(res => res.json())        // encodeURIComponent() => mã hóa các kí tự đặc biệt tránh bị nhầm lẫn
             .then(res => {
                 setSearchResult(res.data);
@@ -37,7 +39,7 @@ function Search() {
             .catch(() => {
                 setLoading(false);  // lỗi mạng thì sẽ ẩn đi => false
             })
-    }, [searchValue]);
+    }, [debounced]);        //thay searchValue = debounced để khi debounced thay đổi 
 
     const handleClear = () => {
         setSearchValue('');         // Clear input khi click vào button clear
