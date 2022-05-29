@@ -59,58 +59,62 @@ function Search() {
     }
 
     return (
-        <HeadlessTippy
-            interactive={true}
-            visible={showResult && searchResult.length > 0}
-            render={attrs => (
-                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper>
-                        <h4 className={cx('search-title')}>Accounts</h4>
-                        {searchResult.map((result) => (     // searchResult lúc này là 1 mảng chứa các object => result là 1 object
-                            <AccountItem
-                                key={result.id}     // lấy id của result( result lúc này là 1 object)
-                                data={result}
-                            />
-                        ))}
-                    </PopperWrapper>
-                </div>
-            )}
-            onClickOutside={handleHideResult}   // `blur ra ngoài ô input sẽ thực hiện hàm handleHideResult`
-        >
-            <div className={cx('search')}>
-                <input
-                    ref={inputRef}    // sử dụng useRef để focus vào input
-                    value={searchValue}         // Sử dụng useState để 2waybinding render 
-                    onChange={(e) => {
-                        if (e.target.value.startsWith(' ')) {       // Nếu input nhập vào bắt đầu = space thì return hàm
-                            return;
-                        } else {
-                            setSearchValue(e.target.value)          // Nếu input nhập vào bắt đầu # space thì return setSearchValue(e.target.value) 
-                        }
-                    }}
-                    placeholder='Search accounts and videos'
-                    spellCheck={false}
-                    onFocus={() => setShowResult(true)}    // Khi focus vào lại ô input sẽ setShowResult=true
-                // kết hợp với searchResult.length > 0 => sẽ hiện ra searchResult
-                />
-
-                {/* // Convert searchValue sang Boolean => Khi có searchValue và không có loading( setLoading(false)) => 
-                    //  khi nhập giá trị vào thì mới hiển thị button clear */}
-                {!!searchValue && !loading && (
-                    <button className={cx('clear')} onClick={handleClear}
-                    >
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
+        // Using a wrapper <div> or <span> tag around the reference element
+        // solves this by creating a new parentNode context.
+        <div>
+            <HeadlessTippy
+                interactive={true}
+                visible={showResult && searchResult.length > 0}
+                render={attrs => (
+                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                        <PopperWrapper>
+                            <h4 className={cx('search-title')}>Accounts</h4>
+                            {searchResult.map((result) => (     // searchResult lúc này là 1 mảng chứa các object => result là 1 object
+                                <AccountItem
+                                    key={result.id}     // lấy id của result( result lúc này là 1 object)
+                                    data={result}
+                                />
+                            ))}
+                        </PopperWrapper>
+                    </div>
                 )}
+                onClickOutside={handleHideResult}   // `blur ra ngoài ô input sẽ thực hiện hàm handleHideResult`
+            >
+                <div className={cx('search')}>
+                    <input
+                        ref={inputRef}    // sử dụng useRef để focus vào input
+                        value={searchValue}         // Sử dụng useState để 2waybinding render 
+                        onChange={(e) => {
+                            if (e.target.value.startsWith(' ')) {       // Nếu input nhập vào bắt đầu = space thì return hàm
+                                return;
+                            } else {
+                                setSearchValue(e.target.value)          // Nếu input nhập vào bắt đầu # space thì return setSearchValue(e.target.value) 
+                            }
+                        }}
+                        placeholder='Search accounts and videos'
+                        spellCheck={false}
+                        onFocus={() => setShowResult(true)}    // Khi focus vào lại ô input sẽ setShowResult=true
+                    // kết hợp với searchResult.length > 0 => sẽ hiện ra searchResult
+                    />
 
-                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-                {/* Nếu có loading thì lấy ra icon - toán tử && là nếu có ... thì ... */}
+                    {/* // Convert searchValue sang Boolean => Khi có searchValue và không có loading( setLoading(false)) => 
+                        //  khi nhập giá trị vào thì mới hiển thị button clear */}
+                    {!!searchValue && !loading && (
+                        <button className={cx('clear')} onClick={handleClear}
+                        >
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                    )}
 
-                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()} > {/* Bỏ qua hành vi focus vào ô tìm kiếm khi nhấn submit */}
-                    <SearchIcon />
-                </button>
-            </div>
-        </HeadlessTippy >
+                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+                    {/* Nếu có loading thì lấy ra icon - toán tử && là nếu có ... thì ... */}
+
+                    <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()} > {/* Bỏ qua hành vi focus vào ô tìm kiếm khi nhấn submit */}
+                        <SearchIcon />
+                    </button>
+                </div>
+            </HeadlessTippy >
+        </div>
     )
 }
 

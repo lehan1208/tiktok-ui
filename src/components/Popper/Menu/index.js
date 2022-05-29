@@ -49,7 +49,8 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
                         {history.length > 1 && <Header title='Language' onBack={() => {
                             setHistory(prev => prev.slice(0, prev.length - 1))
                         }} />}
-                        {renderItems()}
+                        {/* bọc các button vào 1 thẻ div để cuộn */}
+                        <div className={cx('menu-scroll')}> {renderItems()}</div>
                     </PopperWrapper>
                 </div>)}
             onHide={() => setHistory(prev => prev.slice(0, 1))} // Cắt lấy phần tử đầu tiên khi hover ra ngoài

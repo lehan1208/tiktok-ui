@@ -1,11 +1,15 @@
 .wrapper {
     --search-button-width: 52px;
-
-    width: 100%;
-    height: var(--default-layout-header-heigth, 60px);
-    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+    position: fixed; // Fix cứng header ở trên top
+    top: 0; // Fix cứng header ở trên top
+    left: 0; // Fix cứng header ở trên top
     display: flex;
+    z-index: 10;
     justify-content: center;
+    width: 100%;
+    height: var(--default-layout-header-heigth);
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+    background-color: var(--white);
 }
 
 .inner {

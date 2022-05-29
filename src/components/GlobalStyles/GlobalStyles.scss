@@ -8,8 +8,8 @@
     --font-family: ProximaNova, sans-serif;
 
     // Default layout
-    --default-layout-header-heigth: 60px;
     --default-layout-width: 1150px;
+    --default-layout-header-heigth: 60px;
     --default-layout-horizontal-spacer: 24px;
 }
 
@@ -29,6 +29,23 @@ body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     color: var(--text-color);
+    overflow-y: overlay; // Cho thanh scrollbar nằm trên body, không chiếm chỗ trong body
+}
+
+// Scrollbar CSS
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 button,
